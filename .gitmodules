@@ -1,3 +1,6 @@
 [submodule "Flapper"]
 	path = Flapper
 	url = https://github.com/jayKayEss/Flapper
+[submodule "kiosk-browser"]
+	path = kiosk-browser
+	url = https://github.com/pschultz/kiosk-browser
