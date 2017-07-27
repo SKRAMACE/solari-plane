@@ -41,8 +41,8 @@ FlapBuffer.prototype = {
 
 };
 
-// Toast prototype
-var Toast = function(display_selector, data_selector, input_selector, update_selector) {
+// Solari prototype
+var Solari = function(display_selector, data_selector, input_selector, update_selector) {
     var _this = this;
 
     var onAnimStart = function(e) {
@@ -83,9 +83,9 @@ var Toast = function(display_selector, data_selector, input_selector, update_sel
     this.$html_input = $(input_selector);
 
     $(update_selector).get(function(e){
-        var toast_data = _this.$data_input.data('toast_data')
+        var solari_data = _this.$data_input.data('solari_data')
         var text;
-        text = _this.cleanInput(toast_data);
+        text = _this.cleanInput(solari_data);
         //text = _this.cleanInput(_this.$html_input.html());
         var buffers = _this.parseInput(text);
 
@@ -96,9 +96,9 @@ var Toast = function(display_selector, data_selector, input_selector, update_sel
     });
 
     this.update = function() {
-        var toast_data = _this.$data_input.data('toast_data')
+        var solari_data = _this.$data_input.data('solari_data')
         var text;
-        text = _this.cleanInput(toast_data);
+        text = _this.cleanInput(solari_data);
         //text = _this.cleanInput(_this.$html_input.html());
         var buffers = _this.parseInput(text);
 
@@ -107,8 +107,8 @@ var Toast = function(display_selector, data_selector, input_selector, update_sel
     }
 };
 
-// Toast methods
-Toast.prototype = {
+// Solari methods
+Solari.prototype = {
 
     cleanInput: function(text) {
         return text.toUpperCase();
@@ -177,15 +177,15 @@ $(document).ready(function(){
     var refresh_interval = 5000
 
     // Stash a key-value pair in element 
-    $(data_selector).data('toast_data', 'init'); 
+    $(data_selector).data('solari_data', 'init'); 
 
     // Instantiate object
-    toast = new Toast(display_selector, data_selector, input_selector, update_selector);
+    solari = new Solari(display_selector, data_selector, input_selector, update_selector);
 
     // Run handleInverval every refresh_interval milliseconds
     setInterval(function(){ handleInterval() },refresh_interval);
 
-    toast.update()
+    solari.update()
 
     var Fields = function() {
         this.flight = 7;
@@ -250,17 +250,17 @@ $(document).ready(function(){
         console.log(_data);
 
         // Update selectors
-        $(data_selector).data('toast_data', String(_data));
+        $(data_selector).data('solari_data', String(_data));
         $(input_selector).html(_data);
 
         // Update object
-        toast.update()
+        solari.update()
     }
         
     // Query data every INTERVAL seconds
     function handleInterval() {
-      //var _url = 'http://localhost:5000'
-      var _url = 'http://localhost:5000/toast/api/v1.0/flights'
-      $.ajax({url:_url, success: apply_get, cache: false});
+        // TODO: Config file
+        var _url = 'http://localhost:5000/planesolari/api/v1.0/flights'
+        $.ajax({url:_url, success: apply_get, cache: false});
     }
 });

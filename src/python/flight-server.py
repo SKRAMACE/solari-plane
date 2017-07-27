@@ -35,7 +35,7 @@ departures = [
     }
 ]
 
-@app.route('/toast/api/v1.0/flights', methods=['GET'])
+@app.route('/planesolari/api/v1.0/flights', methods=['GET'])
 def get_flights():
     return jsonify({'arrivals': arrivals, 'departures': departures})
 
