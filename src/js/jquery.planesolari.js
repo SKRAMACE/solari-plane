@@ -48,11 +48,30 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
     var onAnimStart = function(e) {
         var $display = $(e.target);
         $display.prevUntil('.flapper', '.activity').addClass('active');
+
+        // Start playing audio when the first bank starts
+        if (anim_active == 0) {
+            console.log('Starting: ' + anim_active);
+            anim_sound.play();
+        };
+
+        // Keep track of active banks
+        anim_active += 1;
     };
 
     var onAnimEnd = function(e) {
         var $display = $(e.target);
         $display.prevUntil('.flapper', '.activity').removeClass('active');
+
+        // Keep track of active banks
+        anim_active -= 1;
+
+        // Stop playing audio when the last bank stops
+        if (anim_active == 0) {
+            console.log("Stopping: " + anim_active);
+            anim_sound.pause();
+            anim_sound.currentTime = 0;
+        };
     };
 
     var _width = (function() {
@@ -68,6 +87,9 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
         on_anim_start: onAnimStart,
         on_anim_end: onAnimEnd
     };
+
+    var anim_active = 0;
+    var anim_sound = new Audio('split_flap.mp3');
 
     this.timers = [];
 

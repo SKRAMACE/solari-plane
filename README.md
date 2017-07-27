@@ -5,3 +5,7 @@ INSTALLATION:
         python, pip, virtualenv, apache
 
     > sudo ./install.sh
+
+The solari sound clip is credited to matucha at freesound.org
+	Link: https://freesound.org/s/174056/
+	File: pragotron_split-flap-display.wav
