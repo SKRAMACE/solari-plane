@@ -33,5 +33,5 @@ if [[ ! -d ${WWW} ]]; then
 fi
 
 echo "===Updating plane-solari files==="
-cp html/* ${WWW}
-cp js/* ${WWW}/src
+cp src/html/* ${WWW}
+cp src/js/* ${WWW}/src
