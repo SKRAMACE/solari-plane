@@ -51,7 +51,6 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
 
         // Start playing audio when the first bank starts
         if (anim_active == 0) {
-            console.log('Starting: ' + anim_active);
             anim_sound.play();
         };
 
@@ -68,16 +67,19 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
 
         // Stop playing audio when the last bank stops
         if (anim_active == 0) {
-            console.log("Stopping: " + anim_active);
             anim_sound.pause();
             anim_sound.currentTime = 0;
         };
     };
 
     var _width = (function() {
+        var x = document.getElementsByClassName("digit");
+        console.log(x);
         // For some reason, this breaks the indicator light
-        var w = $(window).width()/(30+8);
-        return 38;
+        var w = $(data_selector).width()/(30 + 5);
+        //return 38;
+        console.log(w);
+        return Math.floor(w);
     })();
 
     this.opts = {
