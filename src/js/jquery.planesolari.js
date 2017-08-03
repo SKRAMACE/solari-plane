@@ -76,7 +76,7 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
         var x = document.getElementsByClassName("digit");
         console.log(x);
         // For some reason, this breaks the indicator light
-        var w = $(data_selector).width()/(30 + 5);
+        var w = $(data_selector).width()/(40 + 5);
         //return 38;
         console.log(w);
         return Math.floor(w);
