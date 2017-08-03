@@ -87,7 +87,8 @@ var Solari = function(display_selector, data_selector, input_selector, update_se
         align: 'left',
         width: _width,
         on_anim_start: onAnimStart,
-        on_anim_end: onAnimEnd
+        on_anim_end: onAnimEnd,
+        transform: false
     };
 
     var anim_active = 0;
@@ -167,7 +168,6 @@ Solari.prototype = {
         var timeout = 100;
 
         for (i in buffers) {
-
             _this.$displays.each(function(j) {
 
                 var $display = $(_this.$displays[j]);
@@ -175,6 +175,8 @@ Solari.prototype = {
                 (function(i,j) {
                     _this.timers.push(setTimeout(function(){
                         if (buffers[i][j]) {
+                            console.log("hello!")
+                            console.log(j)
                             $display.val(buffers[i][j]).change();
                         } else {
                             $display.val('').change();
@@ -191,17 +193,12 @@ Solari.prototype = {
 
 };
 
-// Entry point
-//  This runs when the DOM is ready for JavaScript to run
-$(document).ready(function(){
+function run_all() {
     var display_selector = 'input.display';
     var data_selector = '#flapper_section';
     var input_selector = '#div2';
     var update_selector = '#showme';
-    var refresh_interval = 5000
-
-    // Stash a key-value pair in element 
-    $(data_selector).data('solari_data', 'init'); 
+    var refresh_interval = 10000
 
     // Instantiate object
     solari = new Solari(display_selector, data_selector, input_selector, update_selector);
@@ -209,6 +206,8 @@ $(document).ready(function(){
     // Run handleInverval every refresh_interval milliseconds
     setInterval(function(){ handleInterval() },refresh_interval);
 
+    // Stash a key-value pair in element 
+    $(data_selector).data('solari_data', 'init'); 
     solari.update()
 
     var Fields = function() {
@@ -287,4 +286,11 @@ $(document).ready(function(){
         var _url = 'http://localhost:5000/planesolari/api/v1.0/flights'
         $.ajax({url:_url, success: apply_get, cache: false});
     }
+};
+
+// Entry point
+//  This runs when the DOM is ready for JavaScript to run
+$(document).ready(function(){
+    // Delay allows browser to get into fullscreen mode before the page performs size calculations
+    setTimeout(run_all, 5000);
 });
