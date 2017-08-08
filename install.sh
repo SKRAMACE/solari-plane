@@ -14,6 +14,15 @@ if [[ ! -e flask ]]; then
     virtualenv --python=${PYTHON} flask
     flask/bin/pip install flask
     flask/bin/pip install -U flask-cors
+    flask/bin/pip install -U requests
+fi
+
+# ENV SETUP
+FIFO="/var/run/user/1000/FB_FIFO"
+if [[ ! -p ${FIFO} ]]; then
+    echo "===Setting up named pipe==="
+    mkfifo ${FIFO} 
+    chmod 666 ${FIFO}
 fi
 
 # APACHE SETUP
@@ -35,3 +44,14 @@ fi
 echo "===Updating plane-solari files==="
 cp src/html/* ${WWW}
 cp src/js/* ${WWW}/src
+cp media/* ${WWW}
+
+echo "===Installing Webserver==="
+TARGET=/usr/local/bin/flight-server
+echo "#!"$ENV >$TARGET
+cat src/python/flight-server.py >>$TARGET
+
+ENV=$(pwd)/flask/bin/python
+BIN="/usr/local/bin"
+cp adsb_basestation.sh ${BIN}/adsb_basestation
+chmod 755 ${BIN}/adsb_basestation

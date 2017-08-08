@@ -248,26 +248,14 @@ function run_all() {
 
     // Success callback
     function apply_get(data) {
-        var _data = 'Arrivals\n'
-        console.log('Arrivals')
-        for (i in data.arrivals) {
-            x = data.arrivals[i]
-            console.log(x)
-            var flight = x.carrier + x.flight
-            _data += flight + '\n'
-            _data += x.tofrom + '\n'
-            _data += x.sched + '\n'
-            _data += x.gate + '\n'
-            _data += "\n"
-        }
+        var _data = 'Departures\n'
 
         for (i in data.departures) {
             x = data.departures[i]
-            console.log(x)
-            _data += x.carrier + x.flight + " "
-            _data += x.tofrom + " "
-            _data += x.sched + " "
-            _data += x.gate + " "
+            _data += x.airline + x.flightnumber + " "
+            _data += x.dcity + " "
+            _data += x.dtime + " "
+            _data += x.status + " "
             _data += "\n"
         }
         console.log(_data);
